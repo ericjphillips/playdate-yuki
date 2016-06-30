@@ -15,9 +15,10 @@ yuki.on('loggedOn', function (res) {
 
 yuki.on('webSession', function (id, cookies) {
   console.log('Yuki got a web session.')
-  yuki.joinChat(process.env.CHATID, function (EResult) {
-    console.log(`Yuki is attempting to join chat... ${User.EResult[EResult]}`)
-  })
+})
+
+yuki.on('chatInvite', function (inviter, id) {
+  yuki.joinChat(id)
 })
 
 yuki.hasNotSpammedLately = true
@@ -27,10 +28,8 @@ yuki.spammed = function () {
 }
 
 yuki.obey = function (msg, room) {
-  switch (msg) {
-    case msg.indexOf('compare') === 1:
-      yuki.chatMessage(room, 'idk how to do that just yet..')
-      break
+  if (msg.indexOf('compare') === 1) {
+    yuki.chatMessage(room, 'IDK how yet :^)')
   }
 }
 
