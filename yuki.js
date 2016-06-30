@@ -30,7 +30,7 @@ yuki.spammed = function () {
 }
 // Example chat message response
 yuki.on('chatMessage', function (room, chatter, message) {
-  if (message.substring(0, 1) === ':^' && yuki.hasNotSpammedLately) {
+  if (message.indexOf(':^') > -1 && yuki.hasNotSpammedLately) {
     yuki.chatMessage(room, ':^)')
     yuki.spammed()
   }
