@@ -22,3 +22,13 @@ yuki.on('webSession', function (id, cookies) {
     console.log(`Yuki is attempting to join chat... ${User.EResult[EResult]}`)
   })
 })
+
+yuki.hasNotSpammedLately = true
+// Example chat message response
+yuki.on('chatMessage#roomID', function (room, chatter, message) {
+  if (message.substring(0, 1) === ':^' && yuki.hasNotSpammedLately) {
+    yuki.chatMessage(room, ':^)')
+    yuki.hasNotSpammedLately = false
+    setTimeout(function () { yuki.hasNotSpammedLately = true }, 300000)
+  }
+})
