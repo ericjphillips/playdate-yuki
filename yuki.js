@@ -24,11 +24,14 @@ yuki.on('webSession', function (id, cookies) {
 })
 
 yuki.hasNotSpammedLately = true
+yuki.spammed = function () {
+  yuki.hasNotSpammedLately = false
+  setTimeout(function () { yuki.hasNotSpammedLately = true }, 300000)
+}
 // Example chat message response
-yuki.on('chatMessage#roomID', function (room, chatter, message) {
+yuki.on('chatMessage', function (room, chatter, message) {
   if (message.substring(0, 1) === ':^' && yuki.hasNotSpammedLately) {
     yuki.chatMessage(room, ':^)')
-    yuki.hasNotSpammedLately = false
-    setTimeout(function () { yuki.hasNotSpammedLately = true }, 300000)
+    yuki.spammed()
   }
 })
