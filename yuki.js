@@ -1,10 +1,8 @@
 'use strict'
-// Pull in modules and instantiate our Steam user
 require('dotenv').config()
 const User = require('steam-user')
 let yuki = new User()
 
-// Log on, set to Online, and join chat
 yuki.logOn({
   'accountName': process.env.USERNAME,
   'password': process.env.PASSWORD
@@ -13,7 +11,6 @@ yuki.logOn({
 yuki.on('loggedOn', function (res) {
   console.log('Yuki is logged into Steam.')
   yuki.setPersona(User.EPersonaState.Online)
-  console.log(res)
 })
 
 yuki.on('webSession', function (id, cookies) {
@@ -28,10 +25,20 @@ yuki.spammed = function () {
   yuki.hasNotSpammedLately = false
   setTimeout(function () { yuki.hasNotSpammedLately = true }, 300000)
 }
-// Example chat message response
+
+yuki.obey = function (msg, room) {
+  switch (msg) {
+    case msg.indexOf('compare') === 1:
+      yuki.chatMessage(room, 'idk how to do that just yet..')
+      break
+  }
+}
+
 yuki.on('chatMessage', function (room, chatter, message) {
   if (message.indexOf(':^') > -1 && yuki.hasNotSpammedLately) {
     yuki.chatMessage(room, ':^)')
     yuki.spammed()
+  } else if (message.substring(0) === '!') {
+    yuki.obey(message, room)
   }
 })
