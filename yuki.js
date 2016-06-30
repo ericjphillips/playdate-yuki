@@ -37,7 +37,7 @@ yuki.on('chatMessage', function (room, chatter, message) {
   if (message.indexOf(':^') > -1 && yuki.hasNotSpammedLately) {
     yuki.chatMessage(room, ':^)')
     yuki.spammed()
-  } else if (message.substring(0) === '!') {
+  } else if (message.charAt(0) === '!') {
     yuki.obey(message, room)
   }
 })
