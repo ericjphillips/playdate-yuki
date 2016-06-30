@@ -1,0 +1,27 @@
+{
+  "name": "playdate-yuki",
+  "version": "1.0.0",
+  "description": "A chat bot for Reddit Playdate",
+  "main": "yuki.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericjphillips/playdate-yuki.git"
+  },
+  "keywords": [
+    "Steam",
+    "steam-user"
+  ],
+  "author": "Eric Phillips",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericjphillips/playdate-yuki/issues"
+  },
+  "homepage": "https://github.com/ericjphillips/playdate-yuki#readme",
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "steam-user": "^3.9.0"
+  }
+}
