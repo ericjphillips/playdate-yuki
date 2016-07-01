@@ -22,6 +22,8 @@
   "homepage": "https://github.com/ericjphillips/playdate-yuki#readme",
   "dependencies": {
     "dotenv": "^2.0.0",
-    "steam-user": "^3.9.0"
+    "steam-user": "^3.9.0",
+    "steamcommunity": "^3.21.1",
+    "steamid": "^1.1.0"
   }
 }
