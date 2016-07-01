@@ -1,7 +1,7 @@
 require('dotenv').config()
 const User = require('steam-user')
 const Id = require('steamid')
-const commands = require('./modules/command')
+const commands = require('./modules/command.js')
 var yuki = new User()
 
 yuki.logOn({
@@ -21,12 +21,6 @@ yuki.on('webSession', function (id, cookies) {
 yuki.on('chatInvite', function (inviter, id) {
   yuki.joinChat(id)
 })
-
-yuki.hasNotSpammedLately = true
-yuki.spammed = function () {
-  yuki.hasNotSpammedLately = false
-  setTimeout(function () { yuki.hasNotSpammedLately = true }, 300000)
-}
 
 yuki.on('chatMessage', function (room, chatter, message) {
   if (message.indexOf('!') === 0) {
