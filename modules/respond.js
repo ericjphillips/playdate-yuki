@@ -4,3 +4,14 @@ yuki.spammed = function () {
   yuki.hasNotSpammedLately = false
   setTimeout(function () { yuki.hasNotSpammedLately = true }, 300000)
 }
+*/
+
+module.exports = {
+  ':^': function () {
+    return ':^)'
+  },
+
+  'tbh fam': function () {
+    return 'desu'
+  }
+}

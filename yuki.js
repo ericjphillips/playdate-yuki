@@ -2,6 +2,7 @@ require('dotenv').config()
 const User = require('steam-user')
 const Id = require('steamid')
 const commands = require('./modules/command.js')
+const responses = require('./modules/respond.js')
 var yuki = new User()
 
 yuki.logOn({
@@ -28,6 +29,12 @@ yuki.on('chatMessage', function (room, chatter, message) {
     if (command in commands) {
       let instructions = message.substring(message.indexOf(' ') + 1)
       yuki.chatMessage(room, commands[command](instructions))
+    }
+  } else {
+    for (let response in responses) {
+      if (message.indexOf(response) > -1) {
+        yuki.chatMessage(room, responses[response]())
+      }
     }
   }
 })
