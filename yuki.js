@@ -26,7 +26,8 @@ yuki.on('chatInvite', function (inviter, id) {
 yuki.hasNotSpammedLately = true
 yuki.spammed = function () {
   yuki.hasNotSpammedLately = false
-  setTimeout(function () { yuki.hasNotSpammedLately = true }, 300000)
+  setTimeout(function () { yuki.hasNotSpammedLately = true },
+  60000 + 60000 * Math.floor(Math.random() * 4))
 }
 
 yuki.on('chatMessage', function (room, chatter, message) {
