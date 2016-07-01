@@ -23,6 +23,12 @@ yuki.on('chatInvite', function (inviter, id) {
   yuki.joinChat(id)
 })
 
+yuki.hasNotSpammedLately = true
+yuki.spammed = function () {
+  yuki.hasNotSpammedLately = false
+  setTimeout(function () { yuki.hasNotSpammedLately = true }, 300000)
+}
+
 yuki.on('chatMessage', function (room, chatter, message) {
   if (message.indexOf('!') === 0) {
     let command = message.substring(1, message.indexOf(' '))
@@ -34,6 +40,7 @@ yuki.on('chatMessage', function (room, chatter, message) {
     for (let response in responses) {
       if (message.indexOf(response) > -1) {
         yuki.chatMessage(room, responses[response]())
+        yuki.spammed()
       }
     }
   }
