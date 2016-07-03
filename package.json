@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ericjphillips/playdate-yuki#readme",
   "dependencies": {
+    "asyncawait": "^1.0.5",
     "dotenv": "^2.0.0",
     "node-fetch": "^1.5.3",
     "steam-user": "^3.9.0",

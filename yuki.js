@@ -35,7 +35,7 @@ yuki.on('chatMessage', function (room, chatter, message) {
     if (command in commands) {
       let instructions = message.substring(message.indexOf(' ') + 1)
       let audience = yuki.playmates[room]
-      yuki.chatMessage(room, commands[command](instructions, audience))
+      commands[command](instructions, audience, room, yuki)
     }
   } else {
     for (let response in responses) {
