@@ -1,6 +1,5 @@
 require('dotenv').config()
 const User = require('steam-user')
-const Id = require('steamid')
 const commands = require('./modules/command.js')
 const responses = require('./modules/respond.js')
 var yuki = new User()
@@ -35,7 +34,8 @@ yuki.on('chatMessage', function (room, chatter, message) {
     let command = message.substring(1, message.indexOf(' '))
     if (command in commands) {
       let instructions = message.substring(message.indexOf(' ') + 1)
-      yuki.chatMessage(room, commands[command](instructions))
+      let audience = yuki.playmates[room]
+      yuki.chatMessage(room, commands[command](instructions, audience))
     }
   } else {
     for (let response in responses) {
@@ -55,14 +55,13 @@ yuki.on('chatEnter', function (id) {
   for (let member in members) {
     steamids.push(member)
   }
+
   yuki.getPersonas(steamids, function (personas) {
     for (let person in personas) {
-      console.log(personas[person])
       let playmate = {}
-      playmate.id = new Id(person)
+      playmate.id = person
       playmate.name = personas[person].player_name
       yuki.playmates[id].push(playmate)
     }
-    console.log(yuki.playmates)
   })
 })
