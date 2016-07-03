@@ -63,7 +63,7 @@ module.exports = {
       })
       players.forEach((player) => {
         player.games.sort((a, b) => {
-          return a.playtime_forever - b.playtime_forever
+          return b.playtime_forever - a.playtime_forever
         })
       })
 
