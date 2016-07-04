@@ -27,10 +27,6 @@ yuki.on('loggedOn', function (res) {
 
 yuki.on('webSession', function (id, cookies) {
   log.info(`Yuki got a new web session.`)
-  setInterval(function () {
-    yuki.webLogon()
-    log.info(`Yuki renewed web session.`)
-  }, 1000 * 60 * 30)
 })
 
 yuki.on('chatInvite', function (inviter, id) {
