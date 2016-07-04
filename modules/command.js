@@ -84,7 +84,7 @@ module.exports = {
 
       let commonGames = []
       players[0].data.games.forEach((game) => {
-        if (players[1].games.findIndex((match) => {
+        if (players[1].data.games.findIndex((match) => {
           return game.appid === match.appid
         }) > -1) {
           commonGames.push(game.name)
@@ -123,10 +123,10 @@ module.exports = {
             .then((json) => {
               player.data = json.response
               return player
+            })
           }
-          })
-        }))
-      }
+        })
+      ) }
     })
     .then((results) => {
       log.info(`Completed async requests on audience.`, {results: results})
