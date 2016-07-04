@@ -1,5 +1,15 @@
 'use strict'
 const fetch = require('node-fetch')
+const bunyan = require('bunyan')
+var log = bunyan.createLogger({
+  name: 'command',
+  streams: [
+    {
+      level: 'debug',
+      path: './logs/debug.json'
+    }
+  ]
+})
 
 function steamUserInfo (api, method, steamid) {
   return `http://api.steampowered.com/${api}/${method}/v1/?key=${process.env.API_KEY}&steamid=${steamid}&format=json&include_appinfo=1`
@@ -11,8 +21,7 @@ function steamAppInfo (api, method) {
 
 module.exports = {
   'compare': function (instructions, audience, room, yuki) {
-    console.log(`Received compare request: compare ${instructions}`)
-
+    log.info(`Received a request to compare ${instructions}`)
     let player1 = instructions.substring(0, instructions.indexOf(' to '))
     let player2 = instructions.substring(instructions.indexOf(' to ') + 4)
 
@@ -91,20 +100,20 @@ module.exports = {
   },
 
   'lookup': function (instructions, audience, room, yuki) {
+    log.info(`Received a request to lookup ${instructions}`)
     let title = instructions
-    console.log(`Received a lookup request for the game ${title}`)
-    let appid
+    let appid = 0
 
     fetch(steamAppInfo('ISteamApps', 'GetAppList'))
     .then((res) => { return res.json() })
     .then((json) => {
       let gameIndex = json.applist.apps.findIndex((match) => {
-        return title === match.name
+        return title.toLowerCase() === match.name.toLowerCase()
       })
       if (gameIndex < 0) {
         yuki.chatMessage(room, `I don't know a game called ${title}`)
       } else {
-        console.log(`Polling audience for the game ${title}`)
+        log.info(`Now polling audience for ${title}`)
         appid = json.applist.apps[gameIndex].appid
         return Promise.all(audience.map(function (player) {
           return fetch((steamUserInfo('IPlayerService', 'GetOwnedGames', player.id))).then((data) => { return data.json() })
@@ -116,6 +125,7 @@ module.exports = {
       }
     })
     .then((results) => {
+      log.info(`Completed async requests on audience.`, {results: results})
       let titleOwners = []
       let playmates = results.filter((player) => {
         if (player.data.games) {

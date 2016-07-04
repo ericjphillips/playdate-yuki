@@ -1,8 +1,18 @@
 require('dotenv').config()
+const bunyan = require('bunyan')
 const User = require('steam-user')
 const commands = require('./modules/command.js')
 const responses = require('./modules/respond.js')
 var yuki = new User()
+var log = bunyan.createLogger({
+  name: 'yuki',
+  streams: [
+    {
+      level: 'debug',
+      path: './logs/debug.json'
+    }
+  ]
+})
 
 yuki.logOn({
   'accountName': process.env.USERNAME,
@@ -10,15 +20,16 @@ yuki.logOn({
 })
 
 yuki.on('loggedOn', function (res) {
-  console.log('Yuki is logged into Steam.')
+  log.info(`Yuki signed in.`)
   yuki.setPersona(User.EPersonaState.Online)
 })
 
 yuki.on('webSession', function (id, cookies) {
-  console.log('Yuki got a web session.')
+  log.info(`Yuki got a new web session.`)
 })
 
 yuki.on('chatInvite', function (inviter, id) {
+  log.info(`Yuki was invited to join a chat`, {inviter: inviter, room: id})
   yuki.joinChat(id)
 })
 
@@ -64,9 +75,11 @@ yuki.on('chatEnter', function (id) {
       yuki.playmates[id].push(playmate)
     }
   })
+  log.info('Yuki entered chat with the following playmates.', {playmates: yuki.playmates[id]})
 })
 
 yuki.on('chatUserJoined', function (room, user) {
+  log.info(`A new user joined chat ${room}`, {user: user})
   for (let playmate of yuki.playmates[room]) {
     if (playmate.id === user) {
       return
@@ -85,7 +98,6 @@ yuki.on('chatUserJoined', function (room, user) {
 
 function refreshWebSession () {
   yuki.webLogon()
-  return true
 }
 
-setInterval(refreshWebSession, 1000 * 60 * 60 * 8)
+setInterval(refreshWebSession, 1000 * 60 * 60)

@@ -3,7 +3,7 @@ module.exports = {
     return ':^)'
   },
 
-  'tbh fam': function () {
+  'tbh': function () {
     return 'desu'
   }
 }
