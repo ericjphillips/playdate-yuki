@@ -65,3 +65,10 @@ yuki.on('chatEnter', function (id) {
     }
   })
 })
+
+function refreshWebSession () {
+  yuki.webLogon()
+  return true
+}
+
+setInterval(refreshWebSession, 1000 * 60 * 60 * 8)
