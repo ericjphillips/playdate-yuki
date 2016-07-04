@@ -34,6 +34,7 @@ module.exports = {
       } else {
         yuki.chatMessage(room, `I only know who ${players[0].name} is.`)
       }
+      return
     }
 
     fetch(steamUserInfo('IPlayerService', 'GetOwnedGames', players[0].id))
@@ -58,7 +59,6 @@ module.exports = {
       }
     })
     .then(() => {
-      console.log(players)
       yuki.chatMessage(room, compare())
     })
 
@@ -66,6 +66,7 @@ module.exports = {
       players.sort((a, b) => {
         return a.games.length - b.games.length
       })
+
       players.forEach((player) => {
         player.games.sort((a, b) => {
           return b.playtime_forever - a.playtime_forever
@@ -84,14 +85,16 @@ module.exports = {
       if (commonGames.length === 0) {
         return 'These two players have no games in common!'
       } else {
-        return `The top games that ${player1} and ${player2} have in common are ${commonGames.join(', ')}.`
+        return `The most played games that ${player1} and ${player2} have in common are: ${commonGames.join(', ')}.`
       }
     }
   },
 
   'lookup': function (instructions, audience, room, yuki) {
     let title = instructions
+    console.log(`Received a lookup request for the game ${title}`)
     let appid
+
     fetch(steamAppInfo('ISteamApps', 'GetAppList'))
     .then((res) => { return res.json() })
     .then((json) => {
@@ -121,7 +124,6 @@ module.exports = {
           return false
         }
       })
-      console.log(playmates[0].data.games)
       playmates.forEach((player) => {
         for (let game of player.data.games) {
           if (game.appid === appid) {
@@ -130,8 +132,11 @@ module.exports = {
           }
         }
       })
-      console.log(titleOwners)
-      yuki.chatMessage(room, `Playmates who own ${title}: ${titleOwners.join(', ')}`)
+      if (titleOwners.length === 0) {
+        yuki.chatMessage(room, `There is nobody here who plays ${title}.`)
+      } else {
+        yuki.chatMessage(room, `Playmates who own ${title}: ${titleOwners.join(', ')}`)
+      }
     })
   }
 }
