@@ -66,6 +66,23 @@ yuki.on('chatEnter', function (id) {
   })
 })
 
+yuki.on('chatUserJoined', function (room, user) {
+  for (let playmate of yuki.playmates[room]) {
+    if (playmate.id === user) {
+      return
+    } else {
+      yuki.getPersonas([user], function (personas) {
+        for (let person in personas) {
+          let playmate = {}
+          playmate.id = person
+          playmate.name = personas[person].player_name
+          yuki.playmates[room].push(playmate)
+        }
+      })
+    }
+  }
+})
+
 function refreshWebSession () {
   yuki.webLogon()
   return true
