@@ -74,8 +74,8 @@ yuki.on('chatEnter', function (id) {
       playmate.name = personas[person].player_name
       yuki.playmates[id].push(playmate)
     }
+    log.info('Yuki entered chat with the following playmates.', {playmates: yuki.playmates[id]})
   })
-  log.info('Yuki entered chat with the following playmates.', {playmates: yuki.playmates[id]})
 })
 
 yuki.on('chatUserJoined', function (room, user) {
@@ -95,9 +95,3 @@ yuki.on('chatUserJoined', function (room, user) {
     }
   }
 })
-
-function refreshWebSession () {
-  yuki.webLogon()
-}
-
-setInterval(refreshWebSession, 1000 * 60 * 60)

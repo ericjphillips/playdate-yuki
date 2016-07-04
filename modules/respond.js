@@ -3,7 +3,11 @@ module.exports = {
     return ':^)'
   },
 
-  'tbh': function () {
-    return 'desu'
+  'wow': function () {
+    return 'omg'
+  },
+
+  'yuki': function () {
+    return 'that\'s my name, don\'t wear it out'
   }
 }
