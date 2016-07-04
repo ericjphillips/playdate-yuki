@@ -16,7 +16,8 @@ var log = bunyan.createLogger({
 
 yuki.logOn({
   'accountName': process.env.USERNAME,
-  'password': process.env.PASSWORD
+  'password': process.env.PASSWORD,
+  'autoRelogin': true
 })
 
 yuki.on('loggedOn', function (res) {
@@ -26,6 +27,10 @@ yuki.on('loggedOn', function (res) {
 
 yuki.on('webSession', function (id, cookies) {
   log.info(`Yuki got a new web session.`)
+  setInterval(function () {
+    yuki.webLogon()
+    log.info(`Yuki renewed web session.`)
+  }, 1000 * 60 * 30)
 })
 
 yuki.on('chatInvite', function (inviter, id) {
@@ -94,4 +99,15 @@ yuki.on('chatUserJoined', function (room, user) {
       })
     }
   }
+})
+
+yuki.on('error', function (error) {
+  log.warn({error: error})
+})
+
+yuki.on('disconnected', function (eresult, msg) {
+  log.warn(`Yuki disconnected.`, {
+    eresult: User.EResult[eresult],
+    message: msg
+  })
 })
