@@ -38,6 +38,7 @@ yuki.spammed = function () {
   yuki.hasNotSpammedLately = false
   setTimeout(function () { yuki.hasNotSpammedLately = true },
   60000 + 60000 * Math.floor(Math.random() * 4))
+  return
 }
 
 yuki.on('chatMessage', function (room, chatter, message) {
@@ -47,15 +48,18 @@ yuki.on('chatMessage', function (room, chatter, message) {
       let instructions = message.substring(message.indexOf(' ') + 1)
       let audience = yuki.playmates[room]
       commands[command](instructions, audience, room, yuki)
+      return
     }
   } else {
     for (let response in responses) {
       if (message.indexOf(response) > -1 && yuki.hasNotSpammedLately) {
         yuki.chatMessage(room, responses[response]())
         yuki.spammed()
+        return
       }
     }
   }
+  return
 })
 
 yuki.playmates = {}
@@ -75,7 +79,9 @@ yuki.on('chatEnter', function (id) {
       yuki.playmates[id].push(playmate)
     }
     log.info('Yuki entered chat with the following playmates.', {playmates: yuki.playmates[id]})
+    return
   })
+  return
 })
 
 /*
@@ -100,6 +106,7 @@ yuki.on('chatUserJoined', function (room, user) {
 
 yuki.on('error', function (error) {
   log.warn({error: error})
+  return
 })
 
 yuki.on('disconnected', function (eresult, msg) {
@@ -107,4 +114,5 @@ yuki.on('disconnected', function (eresult, msg) {
     eresult: User.EResult[eresult],
     message: msg
   })
+  return
 })
