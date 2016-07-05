@@ -16,8 +16,7 @@ var log = bunyan.createLogger({
 
 yuki.logOn({
   'accountName': process.env.USERNAME,
-  'password': process.env.PASSWORD,
-  'autoRelogin': true
+  'password': process.env.PASSWORD
 })
 
 yuki.on('loggedOn', function (res) {
