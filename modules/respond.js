@@ -9,5 +9,9 @@ module.exports = {
 
   'yuki': function () {
     return 'that\'s my name, don\'t wear it out'
+  },
+
+  'so good': function () {
+    return 'papa bless'
   }
 }
