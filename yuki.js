@@ -79,6 +79,7 @@ yuki.on('chatEnter', function (id) {
   })
 })
 
+/*
 yuki.on('chatUserJoined', function (room, user) {
   log.info(`A new user joined chat ${room}`, {user: user})
   for (let playmate of yuki.playmates[room]) {
@@ -96,6 +97,7 @@ yuki.on('chatUserJoined', function (room, user) {
     }
   }
 })
+*/
 
 yuki.on('error', function (error) {
   log.warn({error: error})
