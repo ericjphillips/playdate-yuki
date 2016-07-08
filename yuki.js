@@ -2,7 +2,7 @@ require('dotenv').config()
 const bunyan = require('bunyan')
 const User = require('steam-user')
 const commands = require('./modules/command.js')
-const responses = require('./modules/respond.js')
+// const responses = require('./modules/respond.js')
 var yuki = new User()
 var log = bunyan.createLogger({
   name: 'yuki',
@@ -51,14 +51,8 @@ yuki.on('chatMessage', function (room, chatter, message) {
       return
     }
   } else {
-    for (let response in responses) {
-      if (message.indexOf(response) > -1 && yuki.hasNotSpammedLately) {
-        responses[response](message, audience, room, yuki)
-        return
-      }
-    }
+    return
   }
-  return
 })
 
 yuki.playmates = {}
