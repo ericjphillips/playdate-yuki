@@ -27,6 +27,7 @@ module.exports = {
 
     if (!player1 || !player2) {
       yuki.chatMessage(room, 'To compare, say: !compare player to player')
+      return
     }
 
     let players = audience.filter((player) => {
