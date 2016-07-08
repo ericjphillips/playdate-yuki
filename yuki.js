@@ -24,8 +24,12 @@ yuki.on('loggedOn', function (res) {
   yuki.setPersona(User.EPersonaState.Online)
 })
 
+function refreshWebSession () {
+  yuki.webLogOn()
+}
 yuki.on('webSession', function (id, cookies) {
   log.info(`Yuki got a new web session.`)
+  setInterval(refreshWebSession, 60000 * 60 * 8)
 })
 
 yuki.on('chatInvite', function (inviter, id) {
