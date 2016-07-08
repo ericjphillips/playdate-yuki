@@ -30,11 +30,7 @@ function refreshWebSession () {
 yuki.on('webSession', function (id, cookies) {
   log.info(`Yuki got a new web session.`)
   setInterval(refreshWebSession, 60000 * 60 * 8)
-})
-
-yuki.on('chatInvite', function (inviter, id) {
-  log.info(`Yuki was invited to join a chat`, {inviter: inviter, room: id})
-  yuki.joinChat(id)
+  yuki.joinChat('103582791432297280')
 })
 
 yuki.hasNotSpammedLately = true
