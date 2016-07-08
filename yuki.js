@@ -62,46 +62,45 @@ yuki.on('chatMessage', function (room, chatter, message) {
 })
 
 yuki.playmates = {}
-yuki.on('chatEnter', function (id) {
-  yuki.playmates[id] = []
-  let members = yuki.chats[id].members
-  let steamids = []
-  for (let member in members) {
-    steamids.push(member)
+function updatePlaymateInfo (room, user) {
+  if (!user) {
+    yuki.playmates[room] = []
+    let members = yuki.chats[room].members
+    let steamids = []
+    for (let member in members) {
+      steamids.push(member)
+    }
+    fetchPersonas(steamids, room)
+    return
+  } else {
+    if (yuki.playmates[room].indexOf(function (match) {
+      return match.id === user
+    }) > -1) {
+      return
+    } else {
+      fetchPersonas([user], room)
+    }
   }
+}
 
+function fetchPersonas (steamids, room) {
   yuki.getPersonas(steamids, function (personas) {
     for (let person in personas) {
       let playmate = {}
       playmate.id = person
       playmate.name = personas[person].player_name
-      yuki.playmates[id].push(playmate)
+      yuki.playmates[room].push(playmate)
     }
-    log.info('Yuki entered chat with the following playmates.', {playmates: yuki.playmates[id]})
-    return
   })
-  return
+}
+
+yuki.on('chatEnter', function (room) {
+  updatePlaymateInfo(room)
 })
 
-/*
 yuki.on('chatUserJoined', function (room, user) {
-  log.info(`A new user joined chat ${room}`, {user: user})
-  for (let playmate of yuki.playmates[room]) {
-    if (playmate.id === user) {
-      return
-    } else {
-      yuki.getPersonas([user], function (personas) {
-        for (let person in personas) {
-          let playmate = {}
-          playmate.id = person
-          playmate.name = personas[person].player_name
-          yuki.playmates[room].push(playmate)
-        }
-      })
-    }
-  }
+  updatePlaymateInfo(room, user)
 })
-*/
 
 yuki.on('error', function (error) {
   log.warn({error: error})
