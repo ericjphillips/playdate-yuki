@@ -37,7 +37,7 @@ yuki.hasNotSpammedLately = true
 yuki.spammed = function () {
   yuki.hasNotSpammedLately = false
   setTimeout(function () { yuki.hasNotSpammedLately = true },
-  60000 + 60000 * Math.floor(Math.random() * 4))
+  180000 + 60000 * Math.floor(Math.random() * 3))
   return
 }
 
