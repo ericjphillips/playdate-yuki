@@ -42,19 +42,18 @@ yuki.spammed = function () {
 }
 
 yuki.on('chatMessage', function (room, chatter, message) {
+  let audience = yuki.playmates[room]
   if (message.indexOf('!') === 0) {
     let command = message.substring(1, message.indexOf(' '))
     if (command in commands) {
       let instructions = message.substring(message.indexOf(' ') + 1)
-      let audience = yuki.playmates[room]
       commands[command](instructions, audience, room, yuki)
       return
     }
   } else {
     for (let response in responses) {
       if (message.indexOf(response) > -1 && yuki.hasNotSpammedLately) {
-        yuki.chatMessage(room, responses[response]())
-        yuki.spammed()
+        responses[response](message, audience, room, yuki)
         return
       }
     }
