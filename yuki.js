@@ -24,14 +24,16 @@ yuki.on('loggedOn', function (res) {
   yuki.setPersona(User.EPersonaState.Online)
 })
 
+yuki.on('webSession', function (id, cookies) {
+  log.info(`Yuki got a new web session.`)
+  yuki.joinChat('103582791432297280')
+})
+
 function refreshWebSession () {
   yuki.webLogOn()
 }
-yuki.on('webSession', function (id, cookies) {
-  log.info(`Yuki got a new web session.`)
-  setInterval(refreshWebSession, 60000 * 60 * 8)
-  yuki.joinChat('103582791432297280')
-})
+
+setInterval(refreshWebSession, 60000 * 60 * 8)
 
 yuki.hasNotSpammedLately = true
 yuki.spammed = function () {
