@@ -1,21 +1,18 @@
 module.exports = {
   ':^': function (message, audience, room, yuki) {
     yuki.chatMessage(room, ':^)')
+    yuki.spammed()
   },
 
   'wow': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'omg')
-  },
-
-  ':': function (message, audience, room, yuki) {
-    if (message[0] === ':' && message.slice(-1) === ':') {
-      yuki.chatMessage(room, 'sick emote')
-    }
+    yuki.spammed()
   },
 
   '^': function (message, audience, room, yuki) {
     if (message.length === 1) {
       yuki.chatMessage(room, '^')
+      yuki.spammed()
     }
   }
 }
