@@ -14,6 +14,8 @@ var log = bunyan.createLogger({
   ]
 })
 
+yuki.playmates = {}
+
 function refreshWebSession () {
   yuki.webLogOn()
 }
@@ -27,19 +29,14 @@ yuki.spammed = function () {
   180000 + 60000 * Math.floor(Math.random() * 3))
 }
 
-function updatePlaymateInfo (room, user) {
-  if (!user) {
-    yuki.playmates = {}
-    yuki.playmates[room] = []
-    let members = yuki.chats[room].members
-    let steamids = []
-    for (let member in members) {
-      steamids.push(member)
-    }
-    fetchPersonas(steamids, room)
-  } else {
-    fetchPersonas([user], room)
+function updatePlaymateInfo (room) {
+  yuki.playmates[room] = []
+  let members = yuki.chats[room].members
+  let steamids = []
+  for (let member in members) {
+    steamids.push(member)
   }
+  fetchPersonas(steamids, room)
 }
 
 function fetchPersonas (steamids, room) {
@@ -50,12 +47,6 @@ function fetchPersonas (steamids, room) {
       playmate.name = personas[person].player_name
       yuki.playmates[room].push(playmate)
     }
-  })
-}
-
-function returnPlaymateIndex (room, user) {
-  return yuki.playmates[room].indexOf(function (playmate) {
-    return playmate.id === user
   })
 }
 
@@ -79,11 +70,11 @@ yuki.on('chatEnter', function (room) {
 })
 
 yuki.on('chatUserJoined', function (room, user) {
-  updatePlaymateInfo(room, user)
+  updatePlaymateInfo(room)
 })
 
 yuki.on('chatUserLeft', function (room, user) {
-  yuki.playmates[room].splice(returnPlaymateIndex(room, user), 1)
+  updatePlaymateInfo(room)
 })
 
 yuki.on('chatMessage', function (room, chatter, message) {
