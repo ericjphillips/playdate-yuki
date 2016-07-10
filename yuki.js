@@ -95,6 +95,10 @@ yuki.on('chatMessage', function (room, chatter, message) {
   }
 })
 
+yuki.on('chatInvite#103582791432297280', function (user, room) {
+  yuki.joinChat(room)
+})
+
 yuki.on('error', function (error) {
   log.warn({error: error})
 })
