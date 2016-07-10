@@ -27,12 +27,6 @@ yuki.spammed = function () {
   180000 + 60000 * Math.floor(Math.random() * 3))
 }
 
-function matchingIdFound (collection, targetid) {
-  return collection.indexOf(function (object) {
-    object.id === targetid > -1
-  })
-}
-
 function updatePlaymateInfo (room, user) {
   if (!user) {
     yuki.playmates = {}
@@ -43,10 +37,8 @@ function updatePlaymateInfo (room, user) {
       steamids.push(member)
     }
     fetchPersonas(steamids, room)
-  } else if (!matchingIdFound(yuki.playmates[room], user)) {
-    fetchPersonas([user], room)
   } else {
-    return
+    fetchPersonas([user], room)
   }
 }
 
