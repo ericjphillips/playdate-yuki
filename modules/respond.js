@@ -1,17 +1,21 @@
 module.exports = {
-  ':^': function () {
-    return ':^)'
+  ':^': function (message, audience, room, yuki) {
+    yuki.chatMessage(room, ':^)')
   },
 
-  'wow': function () {
-    return 'omg'
+  'wow': function (message, audience, room, yuki) {
+    yuki.chatMessage(room, 'omg')
   },
 
-  'yuki': function () {
-    return 'that\'s my name, don\'t wear it out'
+  ':': function (message, audience, room, yuki) {
+    if (message[0] === ':' && message.slice(-1) === ':') {
+      yuki.chatMessage(room, 'sick emote')
+    }
   },
 
-  'so good': function () {
-    return 'papa bless'
+  '^': function (message, audience, room, yuki) {
+    if (message.length === 1) {
+      yuki.chatMessage(room, '^')
+    }
   }
 }
