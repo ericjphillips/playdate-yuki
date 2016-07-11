@@ -26,7 +26,7 @@ yuki.hasNotSpammedLately = true
 yuki.spammed = function () {
   yuki.hasNotSpammedLately = false
   setTimeout(function () { yuki.hasNotSpammedLately = true },
-  180000 + 60000 * Math.floor(Math.random() * 3))
+  60000 * 10 + 60000 * Math.floor(Math.random() * 20))
 }
 
 function updatePlaymateInfo (room) {
