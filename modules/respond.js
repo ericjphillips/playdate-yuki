@@ -14,5 +14,10 @@ module.exports = {
       yuki.chatMessage(room, '^')
       yuki.spammed()
     }
+  },
+
+  'reee': function (message, audience, room, yuki) {
+    yuki.chatMessage(room, 'GET OUT NORMIES')
+    yuki.spammed()
   }
 }

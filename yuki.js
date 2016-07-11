@@ -87,7 +87,7 @@ yuki.on('chatMessage', function (room, chatter, message) {
     }
   } else {
     for (let response in responses) {
-      if (message.indexOf(response) > -1 && yuki.hasNotSpammedLately) {
+      if (message.toLowerCase().indexOf(response) > -1 && yuki.hasNotSpammedLately) {
         responses[response](message, audience, room, yuki)
         yuki.spammed()
       }
