@@ -156,7 +156,7 @@ module.exports = {
   },
 
   'yuki': function (instructions, audience, room, yuki) {
-    if (instructions.splice(-1) !== '?') {
+    if (instructions.slice(-1) !== '?') {
       yuki.chatMessage(room, 'Is that a question?')
     } else {
       instructions = instructions.slice(0, -1)
