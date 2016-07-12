@@ -153,5 +153,16 @@ module.exports = {
         yuki.chatMessage(room, `Playmates who own ${title}: ${titleOwners.join(', ')}`)
       }
     })
+  },
+
+  'yuki': function (instructions, audience, room, yuki) {
+    let options = []
+    while (instructions.indexOf(' or ') > -1) {
+      let option = instructions.slice(0, instructions.indexOf(' or '))
+      options.push(option)
+      instructions = instructions.slice(instructions.indexOf(' or ') + 4)
+    }
+    let choice = Math.floor(Math.random() * options.length)
+    yuki.chatMessage(room, options[choice])
   }
 }
