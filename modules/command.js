@@ -156,13 +156,18 @@ module.exports = {
   },
 
   'yuki': function (instructions, audience, room, yuki) {
-    let options = []
-    while (instructions.indexOf(' or ') > -1) {
-      let option = instructions.slice(0, instructions.indexOf(' or '))
-      options.push(option)
-      instructions = instructions.slice(instructions.indexOf(' or ') + 4)
+    if (instructions.splice(-1) !== '?') {
+      yuki.chatMessage(room, 'Is that a question?')
+    } else {
+      instructions = instructions.slice(0, -1)
+      let options = []
+      while (instructions.indexOf(' or ') > -1) {
+        let option = instructions.slice(0, instructions.indexOf(' or '))
+        options.push(option)
+        instructions = instructions.slice(instructions.indexOf(' or ') + 4)
+      }
+      let choice = Math.floor(Math.random() * options.length)
+      yuki.chatMessage(room, options[choice])
     }
-    let choice = Math.floor(Math.random() * options.length)
-    yuki.chatMessage(room, options[choice])
   }
 }
