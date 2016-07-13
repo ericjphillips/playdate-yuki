@@ -19,5 +19,9 @@ module.exports = {
   'reee': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'GET OUT NORMIES')
     yuki.spammed()
+  },
+
+  'how\'s it going': function (message, audience, room, yuki) {
+    yuki.chatMessage(room, 'good how are you?')
   }
 }
