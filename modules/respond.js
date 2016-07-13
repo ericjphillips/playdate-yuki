@@ -23,5 +23,6 @@ module.exports = {
 
   'how\'s it going': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'good, how are you?')
+    yuki.spammed()
   }
 }
