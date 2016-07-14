@@ -22,7 +22,7 @@ module.exports = {
       '150 GBP MINUS',
       'All I wanted was a Pepsi.'
     ]
-    let meme = Math.floor(Math.random * memes.length)
+    let meme = Math.floor(Math.random() * memes.length)
     yuki.chatMessage(room, memes[meme])
     yuki.spammed()
   },
