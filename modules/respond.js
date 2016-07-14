@@ -17,7 +17,13 @@ module.exports = {
   },
 
   'reee': function (message, audience, room, yuki) {
-    yuki.chatMessage(room, 'GET OUT NORMIES')
+    let memes = [
+      'GET OUT NORMIES',
+      '150 GBP MINUS',
+      'All I wanted was a Pepsi.'
+    ]
+    let meme = Math.floor(Math.random * memes.length)
+    yuki.chatMessage(room, memes[meme])
     yuki.spammed()
   },
 
