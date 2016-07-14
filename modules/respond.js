@@ -24,5 +24,19 @@ module.exports = {
   'how\'s it going': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'good, how are you?')
     yuki.spammed()
+  },
+
+  '9/11': function (message, audience, room, yuki) {
+    let questions = [
+      'How did insider traders know about the attacks before they happened?',
+      'Why was air defense told to stand down?',
+      'Why did witnesses report hearing explosions inside the towers?',
+      'Jet fuel can\'t melt steal beams.',
+      'How did the attackers passports survive the explosions?',
+      'Light weight aluminum can\'t penetrate a steel structure.',
+      'What really happened aboard Flight 93?'
+    ]
+    let query = Math.floor(Math.random() * questions.length)
+    yuki.chatMessage(room, questions[query])
   }
 }
