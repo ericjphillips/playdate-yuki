@@ -38,5 +38,10 @@ module.exports = {
     ]
     let query = Math.floor(Math.random() * questions.length)
     yuki.chatMessage(room, questions[query])
+  },
+
+  'here come dat bob': function (message, audience, room, yuki) {
+    yuki.chatMessage(room, 'o shit HI!')
+    yuki.spammed()
   }
 }
