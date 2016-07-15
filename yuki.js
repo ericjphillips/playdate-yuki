@@ -62,7 +62,7 @@ yuki.on('loggedOn', function (res) {
 
 yuki.on('webSession', function (id, cookies) {
   log.info(`Yuki got a new web session.`)
-  yuki.joinChat(process.env.CHATID)
+  yuki.joinChat(process.env.CHAT_ID)
 })
 
 yuki.on('chatEnter', function (room) {
@@ -95,7 +95,7 @@ yuki.on('chatMessage', function (room, chatter, message) {
   }
 })
 
-yuki.on(`chatInvite#${process.env.CHATID}`, function (user, room) {
+yuki.on(`chatInvite#${process.env.CHAT_ID}`, function (user, room) {
   yuki.joinChat(room)
 })
 
