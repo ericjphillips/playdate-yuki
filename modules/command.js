@@ -81,27 +81,47 @@ module.exports = {
         return a.data.games.length - b.data.games.length
       })
 
-      let commonGames = players[0].data.games.filter((game) => {
-        let match = players[1].data.games.findIndex((check) => {
-          return game.id === check.id
-        })
-        if (match > -1) {
-          game.playtime_total = game.playtime_forever + players[1].data.games[match].playtime_forever
-          return true
-        } else {
-          return false
+      let commonGames = []
+
+      let playerOneGames = players[1].data.games
+
+      let playerZedGames = players[0].data.games
+      
+      let continueSearch = true;
+	  
+	  //Search for common games at an increasing depth
+      for (let depth = 10; continueSearch == true && depth < playerOneGames.length + 9; depth = depth + 10) { 
+	    //Go through player 1's games up to that depth
+        for (let p1 = 0; continueSearch && p1 < depth && p1 < playerOneGames.length; p1 = p1 + 1) { 
+		  //Avoid duplicate comparisons (ex: repeatedly comparing player1[0] with player2[0])
+          if(depth > 10 && p1 < depth - 10){
+		    //Go through players 2's games up to the depth (only include new games within this depth level)
+            for (let p2 = depth - 10; p2 < depth && p2 < playerZedGames.length; ++p2) {
+              //If they are common, push to the commonGames list
+              if(playerOneGames[p1].name == playerZedGames[p2].name){
+                commonGames.push(playerOneGames[p1].name);
+				//Only get up to 5 common games
+                if(commonGames.length == 5){
+                  continueSearch = false;
+                }
+              }
+            }
+          }
+          else{
+		    //Go through players 2's games up to the depth (only include new games within this depth level)
+            for (let p2 = 0; p2 < depth && p2 < playerZedGames.length; p2 = p2 + 1) { 
+			  //If they are common, push to the commonGames list
+              if(playerOneGames[p1].name == playerZedGames[p2].name){
+                commonGames.push(playerOneGames[p1].name);
+				//Only get up to 5 common games
+                if(commonGames.length == 5){
+                  continueSearch = false;
+                }
+              }
+            }
+          }
         }
-      })
-
-      commonGames.sort((a, b) => {
-        return b.playtime_total - a.playtime_total
-      })
-
-      commonGames = commonGames.map((game) => {
-        return game.name
-      })
-
-      commonGames = commonGames.slice(0, 5)
+      } 
 
       if (commonGames.length === 0) {
         return 'These two players have no games in common!'
