@@ -81,23 +81,16 @@ module.exports = {
         return a.data.games.length - b.data.games.length
       })
 
-      let commonGames = []
-
-      let playerOneGamesFiltered = players[1].data.games.filter((game) => {
-        return players[0].data.games.findIndex((match) => {
-          return game.id === match.id
-        }) > -1
-      })
-
-      let playerZedGamesFiltered = players[0].data.games.filter((game) => {
-        return players[1].data.games.findIndex((match) => {
-          return game.id === match.id
-        }) > -1
-      })
-
-      commonGames = playerZedGamesFiltered.map((game, index) => {
-        game.playtime_total = game.playtime_forever + playerOneGamesFiltered[index].playtime_forever
-        return game
+      let commonGames = players[0].data.games.filter((game) => {
+        let match = players[1].data.games.findIndex((check) => {
+          return game.id === check.id
+        })
+        if (match > -1) {
+          game.playtime_total = game.playtime_forever + players[1].data.games[match].playtime_forever
+          return true
+        } else {
+          return false
+        }
       })
 
       commonGames.sort((a, b) => {
