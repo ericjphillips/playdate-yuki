@@ -19,6 +19,10 @@ function steamAppInfo (api, method) {
   return `http://api.steampowered.com/${api}/${method}/v2/?key=${process.env.API_KEY}&format=json`
 }
 
+function chooseRandomFrom (array) {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
 module.exports = {
   'compare': function (instructions, audience, room, yuki) {
     log.info(`Received a request to compare ${instructions}`)
@@ -176,12 +180,10 @@ module.exports = {
       instructions = instructions.slice(0, -1)
       let options = []
       while (instructions.indexOf(' or ') > -1) {
-        let option = instructions.slice(0, instructions.indexOf(' or '))
-        options.push(option)
+        options.push(instructions.slice(0, instructions.indexOf(' or ')))
         instructions = instructions.slice(instructions.indexOf(' or ') + 4)
       }
-      let choice = Math.floor(Math.random() * options.length)
-      yuki.chatMessage(room, options[choice])
+      yuki.chatMessage(room, chooseRandomFrom(options))
     }
   }
 }
