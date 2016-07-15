@@ -12,7 +12,7 @@ var log = bunyan.createLogger({
 })
 
 function steamUserInfo (api, method, steamid) {
-  return `http://api.steampowered.com/${api}/${method}/v1/?key=${process.env.API_KEY}&steamid=${steamid}&format=json&include_appinfo=1`
+  return `http://api.steampowered.com/${api}/${method}/v1/?key=${process.env.API_KEY}&steamid=${steamid}&format=json&include_appinfo=1&include_played_free_games=1`
 }
 
 function steamAppInfo (api, method) {
