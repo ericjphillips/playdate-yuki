@@ -77,21 +77,35 @@ module.exports = {
         return a.data.games.length - b.data.games.length
       })
 
-      players.forEach((player) => {
-        player.data.games.sort((a, b) => {
-          return b.playtime_forever - a.playtime_forever
-        })
+      let commonGames = []
+
+      let playerOneGamesFiltered = players[1].data.games.filter((game) => {
+        return players[0].data.games.findIndex((match) => {
+          return game.id === match.id
+        }) > -1
       })
 
-      let commonGames = []
-      players[0].data.games.forEach((game) => {
-        if (players[1].data.games.findIndex((match) => {
-          return game.appid === match.appid
-        }) > -1) {
-          commonGames.push(game.name)
-        }
+      let playerZedGamesFiltered = players[0].data.games.filter((game) => {
+        return players[1].data.games.findIndex((match) => {
+          return game.id === match.id
+        }) > -1
       })
+
+      commonGames = playerZedGamesFiltered.map((game, index) => {
+        game.playtime_total = game.playtime_forever + playerOneGamesFiltered[index].playtime_forever
+        return game
+      })
+
+      commonGames.sort((a, b) => {
+        return b.playtime_total - a.playtime_total
+      })
+
+      commonGames = commonGames.map((game) => {
+        return game.name
+      })
+
       commonGames = commonGames.slice(0, 5)
+
       if (commonGames.length === 0) {
         return 'These two players have no games in common!'
       } else {
