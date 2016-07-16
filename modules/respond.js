@@ -1,3 +1,7 @@
+function chooseRandomFrom (array) {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
 module.exports = {
   ':^': function (message, audience, room, yuki) {
     yuki.chatMessage(room, ':^)')
@@ -20,7 +24,8 @@ module.exports = {
     let memes = [
       'GET OUT NORMIES',
       '150 GBP MINUS',
-      'All I wanted was a Pepsi.'
+      'All I wanted was a Pepsi.',
+      'beta uprising when?'
     ]
     let meme = Math.floor(Math.random() * memes.length)
     yuki.chatMessage(room, memes[meme])
