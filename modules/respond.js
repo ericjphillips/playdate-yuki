@@ -1,4 +1,4 @@
-module.exports = {
+﻿module.exports = {
   ':^': function (message, audience, room, yuki) {
     yuki.chatMessage(room, ':^)')
     yuki.spammed()
@@ -44,6 +44,11 @@ module.exports = {
     ]
     let query = Math.floor(Math.random() * questions.length)
     yuki.chatMessage(room, questions[query])
+  },
+  
+  'i\'m lonely': function (message, audience, room, yuki) {
+    yuki.chatMessage(room, '♪You don\'t have to be lonely♪\n♪At FarmersOnly.com♪')
+    yuki.spammed()
   },
 
   'here come dat bob': function (message, audience, room, yuki) {
