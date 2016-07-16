@@ -102,30 +102,20 @@ module.exports = {
       for (let depth = 10; continueSearch == true && depth < playerOneGames.length + 9; depth = depth + 10) { 
 	    //Go through player 1's games up to that depth
         for (let p1 = 0; continueSearch && p1 < depth && p1 < playerOneGames.length; p1 = p1 + 1) { 
+
+          let startIndex = 0
 		  //Avoid duplicate comparisons (ex: repeatedly comparing player1[0] with player2[0])
           if(depth > 10 && p1 < depth - 10){
-		    //Go through players 2's games up to the depth (only include new games within this depth level)
-            for (let p2 = depth - 10; p2 < depth && p2 < playerZedGames.length; p2 = p2 + 1) {
-              //If they are common, push to the commonGames list
-              if(playerOneGames[p1].name == playerZedGames[p2].name){
-                commonGames.push(playerOneGames[p1].name);
-				//Only get up to 5 common games
-                if(commonGames.length == 5){
-                  continueSearch = false;
-                }
-              }
-            }
-          }
-          else{
-		    //Go through players 2's games up to the depth (only include new games within this depth level)
-            for (let p2 = 0; p2 < depth && p2 < playerZedGames.length; p2 = p2 + 1) { 
-			  //If they are common, push to the commonGames list
-              if(playerOneGames[p1].name == playerZedGames[p2].name){
-                commonGames.push(playerOneGames[p1].name);
-				//Only get up to 5 common games
-                if(commonGames.length == 5){
-                  continueSearch = false;
-                }
+		    startIndex = depth - 10;
+	      }
+		  //Go through players 2's games up to the depth (only include new games within this depth level)
+          for (let p2 = startIndex; p2 < depth && p2 < playerZedGames.length; p2 = p2 + 1) { 
+			//If they are common, push to the commonGames list
+            if(playerOneGames[p1].name == playerZedGames[p2].name){
+              commonGames.push(playerOneGames[p1].name);
+			  //Only get up to 5 common games
+              if(commonGames.length == 5){
+                continueSearch = false;
               }
             }
           }
