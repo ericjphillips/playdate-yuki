@@ -83,12 +83,12 @@ yuki.on('chatMessage', function (room, chatter, message) {
     let command = message.substring(1, message.indexOf(' '))
     if (command in commands) {
       let instructions = message.substring(message.indexOf(' ') + 1)
-      commands[command](instructions, audience, room, yuki)
+      commands[command](instructions, audience, room, yuki, chatter)
     }
   } else {
     for (let response in responses) {
       if (message.toLowerCase().indexOf(response) > -1 && yuki.hasNotSpammedLately) {
-        responses[response](message, audience, room, yuki)
+        responses[response](message, audience, room, yuki, chatter)
         yuki.spammed()
       }
     }
