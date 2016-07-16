@@ -3,24 +3,21 @@ function chooseRandomFrom (array) {
 }
 
 module.exports = {
-  ':^': function (message, audience, room, yuki) {
+  ':^': function (message, audience, room, yuki, sender) {
     yuki.chatMessage(room, ':^)')
-    yuki.spammed()
   },
 
-  'wow': function (message, audience, room, yuki) {
+  'wow': function (message, audience, room, yuki, sender) {
     yuki.chatMessage(room, 'omg')
-    yuki.spammed()
   },
 
-  '^': function (message, audience, room, yuki) {
+  '^': function (message, audience, room, yuki, sender) {
     if (message.length === 1) {
       yuki.chatMessage(room, '^')
-      yuki.spammed()
     }
   },
 
-  'reee': function (message, audience, room, yuki) {
+  'reee': function (message, audience, room, yuki, sender) {
     let memes = [
       'GET OUT NORMIES',
       '150 GBP MINUS',
@@ -28,21 +25,19 @@ module.exports = {
       'beta uprising when?'
     ]
     yuki.chatMessage(room, chooseRandomFrom(memes))
-    yuki.spammed()
   },
 
-  'how\'s it going': function (message, audience, room, yuki) {
+  'how\'s it going': function (message, audience, room, yuki, sender) {
     let answers = [
-      'good, how are you?',
-      'i\'m ok how about you?',
-      'never been better, yourself?',
-      'groovy what\'s good baby?'
+      `good, how are you?`,
+      `i\'m ok how about you?`,
+      `never been better, yourself?`,
+      `groovy what\'s good baby?`
     ]
     yuki.chatMessage(room, chooseRandomFrom(answers))
-    yuki.spammed()
   },
 
-  '9/11': function (message, audience, room, yuki) {
+  '9/11': function (message, audience, room, yuki, sender) {
     let questions = [
       'How did insider traders know about the attacks before they happened?',
       'Why was air defense told to stand down?',
@@ -55,8 +50,7 @@ module.exports = {
     yuki.chatMessage(room, chooseRandomFrom(questions))
   },
 
-  'here come dat bob': function (message, audience, room, yuki) {
+  'here come dat bob': function (message, audience, room, yuki, sender) {
     yuki.chatMessage(room, 'o shit HI!')
-    yuki.spammed()
   }
 }
