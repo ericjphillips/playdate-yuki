@@ -1,3 +1,7 @@
+function chooseRandomFrom (array) {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
 module.exports = {
   ':^': function (message, audience, room, yuki) {
     yuki.chatMessage(room, ':^)')
@@ -20,8 +24,7 @@ module.exports = {
       'All I wanted was a Pepsi.',
       'beta uprising when?'
     ]
-    let meme = Math.floor(Math.random() * memes.length)
-    yuki.chatMessage(room, memes[meme])
+    yuki.chatMessage(room, chooseRandomFrom(memes))
   },
 
   'how\'s it going': function (message, audience, room, yuki) {
@@ -30,7 +33,7 @@ module.exports = {
       'good and you?',
       'I\'m well thanks how are you?'
     ]
-    yuki.chatMessage(room, 'good, how are you?')
+    yuki.chatMessage(room, chooseRandomFrom(answers))
   },
 
   '9/11': function (message, audience, room, yuki) {
@@ -43,8 +46,7 @@ module.exports = {
       'Light weight aluminum can\'t penetrate a steel structure.',
       'What really happened aboard Flight 93?'
     ]
-    let query = Math.floor(Math.random() * questions.length)
-    yuki.chatMessage(room, questions[query])
+    yuki.chatMessage(room, chooseRandomFrom(questions))
   },
 
   'here come dat bob': function (message, audience, room, yuki) {
