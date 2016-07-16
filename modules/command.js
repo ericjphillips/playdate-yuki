@@ -41,7 +41,7 @@ module.exports = {
         return false
       }
     })
-    
+
     if (players.length < 2) {
       if (players.length < 1) {
         yuki.chatMessage(room, 'There\'s nobody by those names here right now.')
@@ -85,45 +85,44 @@ module.exports = {
 
       let playerOneGames = players[1].data.games
 
-	  playerOneGames.sort((a, b) => {
+      playerOneGames.sort((a, b) => {
         return b.playtime_forever - a.playtime_forever
       })
 
       let playerZedGames = players[0].data.games
 
-	  playerZedGames.sort((a, b) => {
+      playerZedGames.sort((a, b) => {
         return b.playtime_forever - a.playtime_forever
       })
 
-      let continueSearch = true;
+      let continueSearch = true
 
-	  //Search for common games at an increasing depth
-      for (let depth = 10; continueSearch == true && depth < playerOneGames.length + 9; depth = depth + 10) {
-	    //Go through player 1's games up to that depth
+      // Search for common games at an increasing depth
+      for (let depth = 10; continueSearch === true && depth < playerOneGames.length + 9; depth = depth + 10) {
+        // Go through player 1's games up to that depth
         for (let p1 = 0; continueSearch && p1 < depth && p1 < playerOneGames.length; p1 = p1 + 1) {
-		  //Avoid duplicate comparisons (ex: repeatedly comparing player1[0] with player2[0])
-          if(depth > 10 && p1 < depth - 10){
-		    //Go through players 2's games up to the depth (only include new games within this depth level)
+          // Avoid duplicate comparisons (ex: repeatedly comparing player1[0] with player2[0])
+          if (depth > 10 && p1 < depth - 10) {
+            // Go through players 2's games up to the depth (only include new games within this depth level)
             for (let p2 = depth - 10; p2 < depth && p2 < playerZedGames.length; p2 = p2 + 1) {
-              //If they are common, push to the commonGames list
-              if(playerOneGames[p1].name == playerZedGames[p2].name){
-                commonGames.push(playerOneGames[p1].name);
-				//Only get up to 5 common games
-                if(commonGames.length == 5){
-                  continueSearch = false;
+              // If they are common, push to the commonGames list
+              if (playerOneGames[p1].name === playerZedGames[p2].name) {
+                commonGames.push(playerOneGames[p1].name)
+                // Only get up to 5 common games
+                if (commonGames.length === 5) {
+                  continueSearch = false
                 }
               }
             }
-          }
-          else{
-		    //Go through players 2's games up to the depth (only include new games within this depth level)
+          } else {
+            // Go through players 2's games up to the depth (only include new games within this depth level)
             for (let p2 = 0; p2 < depth && p2 < playerZedGames.length; p2 = p2 + 1) {
-			  //If they are common, push to the commonGames list
-              if(playerOneGames[p1].name == playerZedGames[p2].name){
-                commonGames.push(playerOneGames[p1].name);
-				//Only get up to 5 common games
-                if(commonGames.length == 5){
-                  continueSearch = false;
+              // If they are common, push to the commonGames list
+              if (playerOneGames[p1].name === playerZedGames[p2].name) {
+                commonGames.push(playerOneGames[p1].name)
+                // Only get up to 5 common games
+                if (commonGames.length === 5) {
+                  continueSearch = false
                 }
               }
             }
