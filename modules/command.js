@@ -28,7 +28,7 @@ module.exports = {
     log.info(`Received a request to compare ${instructions}`)
     let player1 = instructions.substring(0, instructions.indexOf(' to '))
     let player2 = instructions.substring(instructions.indexOf(' to ') + 4)
-
+	
     if (!player1 || !player2) {
       yuki.chatMessage(room, 'To compare, say: !compare player to player')
       return
@@ -41,7 +41,8 @@ module.exports = {
         return false
       }
     })
-
+	
+	console.log(players)
     if (players.length < 2) {
       if (players.length < 1) {
         yuki.chatMessage(room, 'There\'s nobody by those names here right now.')
@@ -84,9 +85,17 @@ module.exports = {
       let commonGames = []
 
       let playerOneGames = players[1].data.games
-
+	  
+	  playerOneGames.sort((a, b) => {
+        return b.playtime_forever - a.playtime_forever
+      })
+	  
       let playerZedGames = players[0].data.games
-      
+	  
+	  playerZedGames.sort((a, b) => {
+        return b.playtime_forever - a.playtime_forever
+      })
+	  
       let continueSearch = true;
 	  
 	  //Search for common games at an increasing depth
@@ -96,7 +105,7 @@ module.exports = {
 		  //Avoid duplicate comparisons (ex: repeatedly comparing player1[0] with player2[0])
           if(depth > 10 && p1 < depth - 10){
 		    //Go through players 2's games up to the depth (only include new games within this depth level)
-            for (let p2 = depth - 10; p2 < depth && p2 < playerZedGames.length; ++p2) {
+            for (let p2 = depth - 10; p2 < depth && p2 < playerZedGames.length; p2 = p2 + 1) {
               //If they are common, push to the commonGames list
               if(playerOneGames[p1].name == playerZedGames[p2].name){
                 commonGames.push(playerOneGames[p1].name);
