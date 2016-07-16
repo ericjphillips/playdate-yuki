@@ -200,7 +200,8 @@ module.exports = {
       yuki.chatMessage(room, 'Is that a question?')
     } else {
       instructions = instructions.slice(0, -1)
-       let options = []		+      let options = instructions.split(' or ')
+      let options = []
+	  
       while (instructions.indexOf(' or ') > -1) {		
         options.push(instructions.slice(0, instructions.indexOf(' or ')))		
         instructions = instructions.slice(instructions.indexOf(' or ') + 4)		
