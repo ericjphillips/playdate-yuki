@@ -27,13 +27,18 @@ module.exports = {
       'All I wanted was a Pepsi.',
       'beta uprising when?'
     ]
-    let meme = Math.floor(Math.random() * memes.length)
-    yuki.chatMessage(room, memes[meme])
+    yuki.chatMessage(room, chooseRandomFrom(memes))
     yuki.spammed()
   },
 
   'how\'s it going': function (message, audience, room, yuki) {
-    yuki.chatMessage(room, 'good, how are you?')
+    let answers = [
+      'good, how are you?',
+      'i\'m ok how about you?',
+      'never been better, yourself?',
+      'groovy what\'s good baby?'
+    ]
+    yuki.chatMessage(room, chooseRandomFrom(answers))
     yuki.spammed()
   },
 
@@ -47,8 +52,7 @@ module.exports = {
       'Light weight aluminum can\'t penetrate a steel structure.',
       'What really happened aboard Flight 93?'
     ]
-    let query = Math.floor(Math.random() * questions.length)
-    yuki.chatMessage(room, questions[query])
+    yuki.chatMessage(room, chooseRandomFrom(questions))
   },
 
   'here come dat bob': function (message, audience, room, yuki) {
