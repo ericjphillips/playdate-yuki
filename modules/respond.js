@@ -17,13 +17,19 @@ module.exports = {
     let memes = [
       'GET OUT NORMIES',
       '150 GBP MINUS',
-      'All I wanted was a Pepsi.'
+      'All I wanted was a Pepsi.',
+      'beta uprising when?'
     ]
     let meme = Math.floor(Math.random() * memes.length)
     yuki.chatMessage(room, memes[meme])
   },
 
   'how\'s it going': function (message, audience, room, yuki) {
+    let answers = [
+      'great!',
+      'good and you?',
+      'I\'m well thanks how are you?'
+    ]
     yuki.chatMessage(room, 'good, how are you?')
   },
 
