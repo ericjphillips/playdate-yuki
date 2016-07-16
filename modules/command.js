@@ -42,7 +42,6 @@ module.exports = {
       }
     })
 	
-	console.log(players)
     if (players.length < 2) {
       if (players.length < 1) {
         yuki.chatMessage(room, 'There\'s nobody by those names here right now.')
