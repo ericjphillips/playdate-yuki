@@ -1,18 +1,15 @@
 module.exports = {
   ':^': function (message, audience, room, yuki) {
     yuki.chatMessage(room, ':^)')
-    yuki.spammed()
   },
 
   'wow': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'omg')
-    yuki.spammed()
   },
 
   '^': function (message, audience, room, yuki) {
     if (message.length === 1) {
       yuki.chatMessage(room, '^')
-      yuki.spammed()
     }
   },
 
@@ -24,12 +21,10 @@ module.exports = {
     ]
     let meme = Math.floor(Math.random() * memes.length)
     yuki.chatMessage(room, memes[meme])
-    yuki.spammed()
   },
 
   'how\'s it going': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'good, how are you?')
-    yuki.spammed()
   },
 
   '9/11': function (message, audience, room, yuki) {
@@ -48,6 +43,5 @@ module.exports = {
 
   'here come dat bob': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'o shit HI!')
-    yuki.spammed()
   }
 }
