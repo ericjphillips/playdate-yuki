@@ -1,18 +1,19 @@
-﻿module.exports = {
+function chooseRandomFrom (array) {
+  return array[Math.floor(Math.random() * array.length)]
+}
+
+module.exports = {
   ':^': function (message, audience, room, yuki) {
     yuki.chatMessage(room, ':^)')
-    yuki.spammed()
   },
 
   'wow': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'omg')
-    yuki.spammed()
   },
 
   '^': function (message, audience, room, yuki) {
     if (message.length === 1) {
       yuki.chatMessage(room, '^')
-      yuki.spammed()
     }
   },
 
@@ -20,16 +21,19 @@
     let memes = [
       'GET OUT NORMIES',
       '150 GBP MINUS',
-      'All I wanted was a Pepsi.'
+      'All I wanted was a Pepsi.',
+      'beta uprising when?'
     ]
-    let meme = Math.floor(Math.random() * memes.length)
-    yuki.chatMessage(room, memes[meme])
-    yuki.spammed()
+    yuki.chatMessage(room, chooseRandomFrom(memes))
   },
 
   'how\'s it going': function (message, audience, room, yuki) {
-    yuki.chatMessage(room, 'good, how are you?')
-    yuki.spammed()
+    let answers = [
+      'great!',
+      'good and you?',
+      'I\'m well thanks how are you?'
+    ]
+    yuki.chatMessage(room, chooseRandomFrom(answers))
   },
 
   '9/11': function (message, audience, room, yuki) {
@@ -42,17 +46,14 @@
       'Light weight aluminum can\'t penetrate a steel structure.',
       'What really happened aboard Flight 93?'
     ]
-    let query = Math.floor(Math.random() * questions.length)
-    yuki.chatMessage(room, questions[query])
+    yuki.chatMessage(room, chooseRandomFrom(questions))
   },
   
   'i\'m lonely': function (message, audience, room, yuki) {
-    yuki.chatMessage(room, '♪You don\'t have to be lonely♪\n♪At FarmersOnly.com♪')
-    yuki.spammed()
+    yuki.chatMessage(room, '?You don\'t have to be lonely?\n?At FarmersOnly.com?')
   },
 
   'here come dat bob': function (message, audience, room, yuki) {
     yuki.chatMessage(room, 'o shit HI!')
-    yuki.spammed()
   }
 }
