@@ -7,10 +7,6 @@ module.exports = {
     yuki.chatMessage(room, ':^)')
   },
 
-  'wow': function (message, audience, room, yuki) {
-    yuki.chatMessage(room, 'omg')
-  },
-
   '^': function (message, audience, room, yuki) {
     if (message.length === 1) {
       yuki.chatMessage(room, '^')
@@ -25,15 +21,6 @@ module.exports = {
       'beta uprising when?'
     ]
     yuki.chatMessage(room, chooseRandomFrom(memes))
-  },
-
-  'how\'s it going': function (message, audience, room, yuki) {
-    let answers = [
-      'great!',
-      'good and you?',
-      'I\'m well thanks how are you?'
-    ]
-    yuki.chatMessage(room, chooseRandomFrom(answers))
   },
 
   '9/11': function (message, audience, room, yuki) {
