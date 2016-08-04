@@ -18,7 +18,9 @@ module.exports = {
       'GET OUT NORMIES',
       '150 GBP MINUS',
       'All I wanted was a Pepsi.',
-      'beta uprising when?'
+      'beta uprising when?',
+      'your spaghetti is showing',
+      '> tfw no gf'
     ]
     yuki.chatMessage(room, chooseRandomFrom(memes))
   },
@@ -29,7 +31,7 @@ module.exports = {
       'Why was air defense told to stand down?',
       'Why did witnesses report hearing explosions inside the towers?',
       'Jet fuel can\'t melt steal beams.',
-      'How did the attackers passports survive the explosions?',
+      'How did the attackers\' passports survive the explosions?',
       'Light weight aluminum can\'t penetrate a steel structure.',
       'What really happened aboard Flight 93?'
     ]
