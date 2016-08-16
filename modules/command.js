@@ -190,5 +190,37 @@ module.exports = {
       let options = instructions.split(' or ')
       yuki.chatMessage(room, chooseRandomFrom(options))
     }
+  },
+
+  'deals': function (instructions, audience, room, yuki) {
+    let title = instructions
+    fetch(`https://api.isthereanydeal.com/v02/game/plain/?key=${process.env.ITAD_KEY}&title=${title}`)
+    .then((data) => { return data.json() })
+    .then((json) => {
+      if (json.error) {
+        yuki.chatMessage(room, 'Received an error when I asked about that game.')
+      } else {
+        return json.data.plain
+      }
+    })
+    .then((plain) => {
+      fetch(`https://api.isthereanydeal.com/v01/game/prices/us/?key=${process.env.ITAD_KEY}&plains=${plain}`)
+      .then((data) => { return data.json() })
+      .then((json) => {
+        let deals = []
+        if (json.data[plain].list) {
+          json.data[plain].list.forEach((deal) => {
+            deals.push(`$${deal.price_new} on ${deal.shop.name}`)
+          })
+          if (deals.length > 0) {
+            yuki.chatMessage(room, `Current prices for ${title}: ${deals.join(', ')} (thanks IsThereAnyDeal)`)
+          } else {
+            yuki.chatMessage(room, `I did not find any deals for ${title}.`)
+          }
+        } else {
+          yuki.chatMessage(room, `I had trouble finding deals for ${title}. Sorry..`)
+        }
+      })
+    })
   }
 }
