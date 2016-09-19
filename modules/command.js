@@ -223,9 +223,9 @@ module.exports = {
       })
     })
   },
-  
+
   'roll': function(instructions, audience, room, yuki) {
-    let number = parseInt(instructions.slice(-1))
+    let number = parseInt(instructions)
     if(isNaN(number)){
       yuki.chatMessage(room, 'Not a number')
     } else {
