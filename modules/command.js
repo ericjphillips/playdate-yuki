@@ -225,11 +225,11 @@ module.exports = {
   },
   
   'roll': function(instructions, audience, room, yuki) {
-		let number = parseInt(instructions.slice(-1))
-		if(isNaN(number)){
-			yuki.chatMessage(room, 'Not a number')
-		} else {
-			yuki.chatMessage(room, '' + (1 + Math.floor(Math.random() * number)))
-		}
+    let number = parseInt(instructions.slice(-1))
+    if(isNaN(number)){
+      yuki.chatMessage(room, 'Not a number')
+    } else {
+      yuki.chatMessage(room, '' + (1 + Math.floor(Math.random() * number)))
+    }
   }
 }
