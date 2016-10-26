@@ -25,6 +25,10 @@ module.exports = {
     yuki.chatMessage(room, chooseRandomFrom(memes))
   },
 
+  'arsenal': function (message, audience, room, yuki) {
+    yuki.chatMessage(room, 'god it\'s good to be a gooner.')
+  },
+
   '9/11': function (message, audience, room, yuki) {
     let questions = [
       'How did insider traders know about the attacks before they happened?',
