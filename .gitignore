@@ -1,6 +1,6 @@
 # Environment/config files
 .env
-yuki.config.js
+config.json
 
 # Logs
 logs

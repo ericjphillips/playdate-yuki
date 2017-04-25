@@ -1,0 +1,25 @@
+{
+  "name": "playdate-yuki",
+  "version": "1.0.0",
+  "description": "Discord.js bot for Reddit Playdate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reddit-playdate/playdate-yuki.git"
+  },
+  "keywords": [
+    "Discord"
+  ],
+  "author": "Reddit Playdate",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reddit-playdate/playdate-yuki/issues"
+  },
+  "homepage": "https://github.com/reddit-playdate/playdate-yuki#readme",
+  "dependencies": {
+    "discord.js": "^11.0.0"
+  }
+}
